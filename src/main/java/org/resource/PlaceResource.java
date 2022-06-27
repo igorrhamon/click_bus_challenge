@@ -38,7 +38,23 @@ public class PlaceResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/create")
     public Place createPlace(@QueryParam("name") String name, @QueryParam("slug") String slug, @QueryParam("city") String city, @QueryParam("state") String state) {
-        Place place = new Place(name, slug, city, state);
-        return placeDao.insertPlace(place);
+        Place place = new Place();
+        place.setName(name);
+        place.setSlug(slug);
+        place.setCity(city);
+        place.setState(state);
+        place = placeDao.insertPlace(place);
+        return place;
+        
+    }
+
+    @Transactional
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/update")
+    public Place updatePlace(@QueryParam("id") Long id, @QueryParam("name") String name, @QueryParam("slug") String slug, @QueryParam("city") String city, @QueryParam("state") String state) {
+        Place place = new Place( name, slug, city, state, id);
+        return placeDao.updatePlace(place);
     }
 }
