@@ -11,7 +11,9 @@ package org.model;
  */
 import javax.persistence.Entity;
 
-import io.quarkus.hibernate.reactive.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+
 
  @Entity
  public class Place extends PanacheEntity {
