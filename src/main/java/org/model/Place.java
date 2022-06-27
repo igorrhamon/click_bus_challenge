@@ -18,12 +18,26 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
  @Entity
  public class Place extends PanacheEntity {
 
+
+
     private String name;
     private String slug;
     private String city;
     private String state;
     private String createdAt;
     private String updatedAt;
+
+    public Place() {
+    }
+
+    public Place( String name, String slug, String city, String state) {
+        this.name = name;
+        this.slug = slug;
+        this.city = city;
+        this.state = state;
+    
+    }
+
 
 
     public String getName() {
