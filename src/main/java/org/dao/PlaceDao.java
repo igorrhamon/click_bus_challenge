@@ -1,29 +1,34 @@
 package org.dao;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import org.model.Place;
+import org.repository.PlaceRepository;
 
 @ApplicationScoped
 public class PlaceDao {
+
+    @Inject
+    PlaceRepository placeRepository;
     
     public Place insertPlace(Place place) {
-        if (!place.isPersistent()){
-            place.persist();
-            return place;
+        if(placeRepository.findById(place.getId()) == null) {
+             placeRepository.persist(place);
+             return place;
         }
-        else return null;
+        return null;
     }
 
     public Place updatePlace(Place place) {
 
         try {
-            Place newPlace = Place.findById(place.id);
+            Place newPlace = placeRepository.findById(place.getId());
             newPlace.setName(place.getName());
             newPlace.setSlug(place.getSlug());
             newPlace.setCity(place.getCity());
             newPlace.setState(place.getState());
-            newPlace.persist();
+            placeRepository.persist(newPlace);
             return newPlace;
         } catch (Exception e) {
             throw new IllegalStateException(e);
